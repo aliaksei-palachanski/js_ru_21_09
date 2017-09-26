@@ -1,24 +1,31 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import CommentList from './CommentList'
 
 class Article extends Component {
-    static defaultProps = {
-
-    }
-
+    
     static propTypes = {
         article: PropTypes.shape({
             title: PropTypes.string.isRequired,
             text: PropTypes.string,
-            date: PropTypes.string.isRequired
+            date: PropTypes.string.isRequired,
+            comments: PropTypes.array
         }).isRequired,
         isOpen: PropTypes.bool,
-        onClick: PropTypes.func
+        onButtonClick: PropTypes.func
+    }
+
+    renderBody(article) {
+        return (<section>
+            {article.text}            
+            <CommentList comments={article.comments} />
+        </section>);
     }
 
     render() {
-        const {article, isOpen, onButtonClick} = this.props
-        const body = isOpen && <section>{article.text}</section>
+        const { article, isOpen, onButtonClick } = this.props
+        const body = isOpen ? this.renderBody(article) : null;
+        
         return (
             <div>
                 <h2>
