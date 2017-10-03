@@ -1,23 +1,13 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Comment from './Comment'
 import PropTypes from 'prop-types'
 import toggleOpen from '../decorators/toggleOpen'
+import NewComment from './NewComment'
 
 class CommentList extends Component {
-    componentDidMount() {
-        console.log('---', 'mounted')
-    }
-
-    componentWillUnmount() {
-        console.log('---', 'unmounting')
-    }
-
-    componentWillReceiveProps() {
-        console.log('---', 'updating')
-    }
 
     render() {
-        const {comments, isOpen, toggleOpen} = this.props
+        const { comments, isOpen, toggleOpen } = this.props
         const text = isOpen ? 'hide comments' : 'show comments'
         return (
             <div>
@@ -29,18 +19,19 @@ class CommentList extends Component {
 }
 
 function getBody(props) {
-    const {comments, isOpen} = props
+    const { comments, isOpen } = props
     if (!isOpen) return null
 
     const body = comments.length ? (
         <ul>
-            {comments.map(comment => <li key={comment.id}><Comment comment={comment}/></li>)}
+            {comments.map(comment => <li key={comment.id}><Comment comment={comment} /></li>)}
         </ul>
     ) : <h3>No comments yet</h3>
 
     return (
         <div>
             {body}
+            <NewComment />
         </div>
     )
 }

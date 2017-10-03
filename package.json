@@ -24,14 +24,17 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-stage-0": "^6.5.0",
+    "gulp-install": "^1.1.0",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.7.1"
   },
   "dependencies": {
     "css-loader": "^0.28.7",
+    "gulp-install": "^1.1.0",
     "prop-types": "^15.5.10",
     "react": "16",
     "react-addons-css-transition-group": "^15.6.2",
+    "react-day-picker": "^6.1.1",
     "react-dom": "16",
     "react-select": "1.0.0-rc.10",
     "style-loader": "^0.18.2"
