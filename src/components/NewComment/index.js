@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import './style.css'
+
 class NewComment extends Component {
 
     state = {
@@ -11,17 +13,36 @@ class NewComment extends Component {
     }
 
     handleUserInput = (ev) => {
-
+        if (ev.target.value.length < 1) {
+            this.setState({
+                usernameError: <h4 className="error-message">Username is required</h4>,
+                username: ev.target.value
+            })
+        } else {
+            this.setState({
+                usernameError: '',
+                username: ev.target.value
+            })
+        }
     }
 
     handleTextInput = (ev) => {
-        if (ev.target.value.length > 10) return this.setState({
-            username: ''
-        })
-
-        this.setState({
-            username: ev.target.value
-        })
+        if (ev.target.value.length < 10) {
+            this.setState({
+                textError: <h4 className="error-message">Enter not less than 10 symbols</h4>,
+                text: ev.target.value
+            })
+        } else if (ev.target.value.length > 50) {
+            this.setState({
+                textError: <h4 className="error-message">Enter less than 50 symbols</h4>,
+                text: ev.target.value
+            })
+        } else {
+            this.setState({
+                textError: '',
+                text: ev.target.value
+            })
+        }
     }
 
     handleButtonClick = (ev) => {
@@ -36,45 +57,74 @@ class NewComment extends Component {
             this.setState({
                 username: '',
                 text: '',
+                usernameError: '',
+                textError: '',
                 status: <h4>Succesfully submitted</h4>
             });
+        } else {
+            this.setState({
+                status: <h4>Comment is not valid</h4>
+            })
         }
-
     }
 
-    validateOnSubmit() {
-        return true;
+    validateOnSubmit() {        
+        let username = this.state.username;
+        let text = this.state.text;
+        let usernameError;
+        let textError;
+        if (username.length < 1) {
+            usernameError = <h4 className="error-message">Username is required</h4>;
+        }
+        if (text.length < 10) {
+            textError = <h4 className="error-message">Enter not less than 10 symbols</h4>
+        } else if (text.length > 50) {
+            textError = <h4 className="error-message">Enter less than 50 symbols</h4>
+        }
 
+        if (!!usernameError || !!textError) {
+            this.setState({
+                usernameError: usernameError,
+                textError: textError
+            });
+            return false;
+        } else {
+            return true;
+        }
     }
 
     renderBody() {
         return (
             <div>
                 <table>
-                    <tr>
-                        <td>
-                            User:
+                    <tbody>
+                        <tr>
+                            <td>
+                                User:
                         </td>
-                        <td>
-                            <input 
-                                type='text'
-                                value={this.state.username}
-                                onChange={this.handleUserInput} 
-                                placeholder="Enter user name"
-                            />
+                            <td>
+                                <input
+                                    type='text'
+                                    value={this.state.username}
+                                    onChange={this.handleUserInput}
+                                    placeholder="Enter user name"
+                                />
+                                {this.state.usernameError}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Comment:
                         </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Comment:
-                        </td>
-                        <td> <textarea
+                            <td> <textarea
                                 value={this.state.text}
                                 onChange={this.handleTextInput}
                                 placeholder="Not less than 10 not more then 50 symbols"
                             />
-                        </td>
-                    </tr>
+                                {this.state.textError}
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         )
