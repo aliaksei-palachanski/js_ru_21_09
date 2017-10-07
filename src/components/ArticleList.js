@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Article from './Article'
 import Accordion from './Accordion'
+import Article from './Article/index'
 import {connect} from 'react-redux'
 
 class ArticleList extends Accordion {
@@ -11,7 +11,7 @@ class ArticleList extends Accordion {
 
     render() {
         const { articles } = this.props
-        const {articles} = this.props
+        
         if (this.state.error) return <h2>Error: {this.state.error.message}</h2>
         if (!articles.length) return <h3>No Articles</h3>
 
