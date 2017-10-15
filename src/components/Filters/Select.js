@@ -15,7 +15,8 @@ class SelectFilter extends Component {
     handleChange = selected => this.props.selectArticles( selected )
 
     render() {
-        const { articles } = this.props
+        const { articles, selected } = this.props
+        console.log('---', this.props)
         const options = articles.map(article => ({
             label: article.title,
             value: article.id
@@ -24,8 +25,8 @@ class SelectFilter extends Component {
         return <Select
             options={options}
             value={this.props.selectedArticles}
-            multi={true}
             onChange={this.handleChange}
+            multi
         />
     }
 }

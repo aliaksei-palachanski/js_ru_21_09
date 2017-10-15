@@ -23,7 +23,7 @@ class DateRange extends Component {
                 />
                 {selectedRange}
             </div>
-        )
+        );
     }
 
 }
